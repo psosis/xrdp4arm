@@ -28,11 +28,11 @@ function install_xrdp_pa() {
 # Fix PA no sound issue in Ubuntu 20.04.
 # Issue: https://github.com/neutrinolabs/pulseaudio-module-xrdp/issues/44
 function fix_pa_systemd_issue() {
-mkdir -p /home/rdpuser/.config/systemd/user/
-ln -s /dev/null /home/rdpuser/.config/systemd/user/pulseaudio.service
-mkdir -p /home/rdpuser/.config/autostart/
+mkdir -p /home/ponie/.config/systemd/user/
+ln -s /dev/null /home/ponie/.config/systemd/user/pulseaudio.service
+mkdir -p /home/ponie/.config/autostart/
 cat <<EOF | \
-  sudo tee /home/rdpuser/.config/autostart/pulseaudio.desktop
+  sudo tee /home/ponie/.config/autostart/pulseaudio.desktop
 [Desktop Entry]
 Type=Application
 Exec=pulseaudio
@@ -44,18 +44,18 @@ Name=pulseaudio
 Comment[en_US]=pulseaudio
 Comment=pulseaudio
 EOF
-chown -R rdpuser /home/rdpuser/.config/
-chmod -R 755 /home/rdpuser/.config/
+chown -R ponie /home/ponie/.config/
+chmod -R 755 /home/ponie/.config/
 }
 
 # create a new desktop user
 function create_desktop_user() {
-useradd -s /bin/bash -m rdpuser
-usermod -a -G sudo rdpuser
-echo "rdpuser ALL=(ALL) ALL" >> /etc/sudoers
-echo "rdpuser_password
-rdpuser_password
-" | passwd rdpuser
+useradd -s /bin/bash -m ponie
+usermod -a -G sudo ponie
+echo "ponie ALL=(ALL) ALL" >> /etc/sudoers
+echo "ponie
+ponie
+" | passwd ponie
 }
 
 
